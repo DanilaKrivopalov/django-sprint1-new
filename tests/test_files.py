@@ -1,3 +1,4 @@
+
 import os
 import re
 from pathlib import Path
@@ -30,11 +31,13 @@ def test_templates_use_url_tag(root_dir, project_dirname):
         'pages:rules',
     ):
         url_tag_pattern = re.compile(
-            r'{%\s*url\s+[\'"]' + re.escape(url_name) + r'[\'"]'
+            r'{%\s*url\s+[\'"]'
+            + re.escape(url_name)
+            + r'[\'"]'
         )
         assert re.search(url_tag_pattern, templates_content), (
             'Убедитесь, что для внутренних ссылок в шаблонах используется '
-            f'тег `{{% url %}}` с именем маршрута `{url_name}`.'
+            f'тег `{% url %}` с именем маршрута `{url_name}`.'
         )
     hardcoded_links = re.findall(
         r'href=[\'"]/(?!static/)[^\'"]*[\'"]',
